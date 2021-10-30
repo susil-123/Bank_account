@@ -1,0 +1,152 @@
+import java.util.Scanner;
+public class Main {
+    static int X=0;
+    public static int check_inf(int acc_no,int pass)
+    {
+        int pass_ref=1234;
+        int acc_no_ref=123456789;
+        if(pass_ref==pass && acc_no_ref==acc_no)
+        {
+           return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    public static void functions()
+    {
+        System.out.println("\nSelect the process to execute\n1.Balance enquiry\n2.Cash withdrawal\n3.Deposit");
+        Scanner in = new Scanner(System.in);
+        int choice=in.nextInt();
+        switch(choice)
+        {
+            case 1:
+            {
+                System.out.println(bal());
+                break;
+            }
+            case 2:
+            {
+                System.out.println("The balance: "+with_draw());
+                break;
+            }
+            case 3:
+            {
+                System.out.println("The balance: "+deposit());
+                break;
+            }
+            default:
+            {
+                System.out.println("Wrong input please try again...give constraint of 1 to 4");
+                functions();
+            }
+        }
+    }
+    public static void main(String[] args) {
+        System.out.println("Enter the account number: ");
+        Scanner in = new Scanner(System.in);
+        int acc_no=in.nextInt();
+        System.out.println("Enter the password: ");
+        int pass=in.nextInt();
+        int cred=check_inf(acc_no,pass);
+        if(cred==1)
+        {
+            System.out.println("entered your account..");
+            System.out.print("<-------------------->");
+            functions();
+        }
+        else
+        {
+            System.out.println("password wrong da...");
+        }
+        cont();
+    }
+    //acc data
+    public static int acc_inf(int req,String choice)
+    {
+        int bal=900;
+        if(choice=="BALANCE")
+        {
+
+        }
+        else if(choice=="WITHDRAW")
+        {
+            bal-=req;
+        }
+        else if(choice=="DEPOSIT")
+        {
+            bal+=req;
+        }
+
+        return bal;
+    }
+    //balance
+    public static int bal()
+    {
+        int f_bal=acc_inf(0,"BALANCE");
+        return f_bal;
+    }
+    //withdraw
+    public static int with_draw()
+    {
+
+        Scanner in_wth = new Scanner(System.in);
+        System.out.print("Enter the withdrawal amount: ");
+        int f_wth=in_wth.nextInt();
+
+        if(f_wth<100)
+        {
+            System.out.println("Please enter the digit greater than 100..");
+            with_draw();
+        }
+        else if(f_wth>10000)
+        {
+            System.out.println("please enter the digit less than 10000..");
+            with_draw();
+        }
+        else if(f_wth>bal())
+        {
+            System.out.println("Insufficient balance...");
+            with_draw();
+        }
+        else
+        {
+            System.out.println("The amount withdrawn: "+f_wth);
+            X= acc_inf(f_wth,"WITHDRAW");
+        }
+        return X;
+
+    }
+    //deposit
+    public static int deposit()
+    {
+        Scanner in_dep = new Scanner(System.in);
+        System.out.print("Enter the deposit amount: ");
+        int f_deposit=in_dep.nextInt();
+        System.out.println("The amount deposited: "+f_deposit);
+        return acc_inf(f_deposit,"DEPOSIT");
+
+    }
+    //for continuing
+    public static void cont()
+    {
+        String choice="";
+        System.out.println("You wish to continue or exit, if yes type 'y' or 'n");
+        Scanner in_cont =new Scanner(System.in);
+        choice=in_cont.nextLine();
+        if (choice.equals("y") || choice.equals("Y"))
+        {
+        functions();
+        }
+        else if(choice.equals("n") || choice.equals("N"))
+        {
+            System.out.println("Thank You...");
+        }
+        else
+        {
+            System.out.println("Wrong input..plz try again");
+            cont();
+        }
+    }
+}
